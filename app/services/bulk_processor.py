@@ -63,6 +63,12 @@ class BulkProcessor:
                 batch_activated = True
             except Exception:
                 batch_activated = False
+            
+        # NEW: Update each hospital to "created_and_activated"
+        if batch_activated:
+            for r in results:
+                if r.status == 'created':
+                    r.status = 'created_and_activated'
 
         end = time.time()
         report = {
